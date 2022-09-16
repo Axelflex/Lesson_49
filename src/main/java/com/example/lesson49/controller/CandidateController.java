@@ -33,8 +33,15 @@ public class CandidateController {
                 candidate1.getVoted(candidate1);
             }
         }
-        
-        candidate.setPercentVotes(12);
+
+        assert candidate != null;
+
+        for (Candidate candidate1: candidates) {
+            double percent = candidate1.getVotes() / getAllVotes() * 100;
+            if(candidate1.getVotes() != 0){
+                candidate1.setPercentVotes(percent);
+            }
+        }
         model.addAttribute("candidate", candidate);
         return "thankyou";
     }
@@ -44,7 +51,13 @@ public class CandidateController {
         return "votes";
     }
 
-
+    public double getAllVotes(){
+        int all = 0;
+        for (Candidate candidate : candidates) {
+            all = all + candidate.getVotes();
+        }
+        return all;
+    }
 
 
 }
